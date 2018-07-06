@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Subject Teacher List</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	
+</head>
+<body>
+
+	<form method="GET">
+		<h1>Subject Teacher List</h1>
+		<table border="1" id="table_teachers">
+			<thead>
+				<tr>
+					<th>Batchcode</th>
+					<th>SubjectName</th>
+					<th>Staffcode</th>
+					<th>Fromdate</th>
+					<th>Todate</th>
+				</tr>
+			</thead>
+		</table>
+		
+	
+	</form>
+		<script type="text/javascript">
+			$(document).ready(function(){
+
+			     $.ajax({
+			     
+			      url: 'dal_viewsubjectTeacher.php',
+			      datatype: 'json',
+			        success: function(data)          //on recieve of reply
+      				{
+      					result=JSON.parse(data);
+      					var table_users=document.getElementById("table_teachers");
+      					for(var i=0;i<result.length; i++)
+      					{
+      						var batchcode=result[i].batchcode;
+      						var subjectname=result[i].subjectname;
+      						var staffcode=result[i].staffcode;
+      						var fromdate=result[i].fromdate;
+      						var todate=result[i].todate;
+
+      						batchcode='<td>'+batchcode+'</td>';
+      						subjectname='<td>'+subjectname+'</td>';
+      						staffcode='<td>'+staffcode+'</td>';
+      						fromdate='<td>'+fromdate+'</td>';
+      						todate='<td>'+todate+'</td>';
+
+      						var row='<tr>'+batchcode+subjectname+staffcode+fromdate+todate+'</tr>';
+      						$('#table_teachers tr:last').after(row);
+      					}
+
+		 			}	
+		 			
+			     
+			});
+			 });
+	</script>
+</body>
+</html>
